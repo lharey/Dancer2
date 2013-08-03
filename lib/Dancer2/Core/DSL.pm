@@ -154,9 +154,12 @@ sub load_app {
 
     croak "$app_name is not a Dancer2 application"
       if !$app_name->can('dancer_app');
-    my $app = $app_name->dancer_app;
 
-# FIXME not working yet
+    my $app = $app_name->dancer_app;
+    for my $k (keys %options) {
+        $app->setting($k => $options{$k});
+    }
+    return $app;
 }
 
 
